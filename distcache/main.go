@@ -37,7 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 	var exampleCache cache
-	exampleCache.group = groupcache.NewGroup("bcrypt", 1<<20, exampleCache)
+	exampleCache.group = groupcache.NewGroup("distributedStringCache", 1<<20, exampleCache)
 
 	mux := http.NewServeMux()
 	mux.Handle("/get/", exampleCache)
@@ -56,7 +56,7 @@ type cache struct {
 func (ac cache) Get(ctx context.Context, key string, dst groupcache.Sink) error {
 	now := time.Now()
 	defer func() {
-		log.Printf("bcryptKey/key:%q\ttime:%v", key, time.Since(now))
+		log.Printf("distributedStringCacheKey/key:%q\ttime:%v", key, time.Since(now))
 	}()
 	out, err := bcrypt.GenerateFromPassword([]byte(key), 14)
 	if err != nil {
