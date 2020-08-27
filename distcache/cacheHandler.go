@@ -15,6 +15,11 @@ type cache struct {
 	group *groupcache.Group
 }
 
+type cacheValue struct {
+	value string
+	ttl   time.Time
+}
+
 func (ac cache) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
