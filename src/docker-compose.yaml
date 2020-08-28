@@ -3,16 +3,20 @@ services:
   nginx:
     image: pomerium/nginx-proxy:latest
     ports:
-      - "80:80"
+      - 8080:80
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  distcache:
+  distributedcache:
     environment:
       - VIRTUAL_PROTO=http
-      - VIRTUAL_HOST=distributedCache.localhost
+      - VIRTUAL_HOST=localhost
       - VIRTUAL_PORT=80
-      - NODES=distcache
-    image: distcache
+      - NODES=distributedcache
+      - REDISHOST=redis:6379
+    image: distributedcache
     expose:
       - 80
+
+  redis:
+        image: redis:alpine
