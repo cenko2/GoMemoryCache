@@ -97,13 +97,12 @@ type keyAndValue struct {
 	value string
 }
 
-// Delete all expired items from the cache.
 func (c *cache) DeleteExpired() {
 	fmt.Println("Cleanup job")
 	now := time.Now().UnixNano()
 	c.mu.Lock()
 	for k, v := range c.items {
-		// "Inlining" of expired
+
 		if v.Expiration > 0 && now > v.Expiration {
 			c.delete(k)
 			fmt.Println("Key expired :", k)
