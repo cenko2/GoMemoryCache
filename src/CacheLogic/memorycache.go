@@ -48,11 +48,10 @@ func (c *cache) Insert(k string, x *string, m int) {
 	c.mu.Unlock()
 }
 
-// Get an item from the cache. Returns the item or nil, and a bool indicating
-// whether the key was found.
+// Get an item from the cache. Returns the item  or throws panic if item not found
 func (c *cache) Get(k string) string {
 	c.mu.RLock()
-	// "Inlining" of get and Expired
+	 
 	item, found := c.items[k]
 	if !found {
 		c.mu.RUnlock()
@@ -70,7 +69,6 @@ func (c *cache) Get(k string) string {
 
 func (c *cache) KeyExists(k string) bool {
 	c.mu.RLock()
-	// "Inlining" of get and Expired
 	item, found := c.items[k]
 	if !found {
 		c.mu.RUnlock()
