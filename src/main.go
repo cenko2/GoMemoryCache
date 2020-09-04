@@ -15,7 +15,7 @@ func main() {
 
 	memoryCache := CacheLogic.NewMemoryCache(time.Duration(10) * time.Second)
 
-	x := ServiceLogic.New(memoryCache, "key", 1)
+	x := ServiceLogic.New(memoryCache, "key", 30)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/cache/{key}", x.HandleGet).Methods("GET")
